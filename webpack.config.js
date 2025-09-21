@@ -11,15 +11,10 @@ module.exports = {
         filename: "bundle.[contenthash].js",
         path: path.resolve(__dirname, "dist"),
         clean: true,
+        publicPath: "./",
     },
     mode: "production",
     devtool: "source-map",
-    devServer: {
-        static: "./dist",
-        open: true,
-        hot: true,
-        watchFiles: ["src/**/*"],
-    },
     module: {
         rules: [
             {
@@ -60,9 +55,6 @@ module.exports = {
     ],
     optimization: {
         minimize: true,
-        minimizer: [
-            new TerserPlugin(),
-            new CssMinimizerPlugin(),
-        ],
+        minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
     },
 };
