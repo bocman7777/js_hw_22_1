@@ -9,12 +9,12 @@ module.exports = (env, argv) => {
     const isDev = argv.mode === "development";
 
     return {
-        entry: "./index.js", // входной JS в корне
+        entry: "./index.js",
         output: {
             filename: "bundle.[contenthash].js",
             path: path.resolve(__dirname, "dist"),
             clean: true,
-            publicPath: "./", // важно для GitHub Pages
+            publicPath: "./",
         },
         mode: isDev ? "development" : "production",
         devtool: isDev ? "inline-source-map" : "source-map",
@@ -22,20 +22,18 @@ module.exports = (env, argv) => {
             static: "./dist",
             open: true,
             hot: true,
-            watchFiles: ["./index.html", "./index.js", "./style.scss"], // вотчер
+            watchFiles: ["./index.html", "./index.js", "./style.scss"],
         },
         module: {
             rules: [
-                // SCSS → CSS
                 {
                     test: /\.s[ac]ss$/i,
                     use: [
-                        isDev ? "style-loader" : MiniCssExtractPlugin.loader, // HMR в dev
+                        isDev ? "style-loader" : MiniCssExtractPlugin.loader,
                         "css-loader",
                         "sass-loader",
                     ],
                 },
-                // Оптимизация и вставка картинок
                 {
                     test: /\.(png|jpe?g|gif|svg)$/i,
                     type: "asset",
@@ -44,7 +42,7 @@ module.exports = (env, argv) => {
         },
         plugins: [
             new HtmlWebpackPlugin({
-                template: "./index.html", // шаблон в корне
+                template: "./index.html",
                 inject: "body",
             }),
             !isDev &&
